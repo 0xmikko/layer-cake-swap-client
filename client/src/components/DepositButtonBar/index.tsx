@@ -5,8 +5,15 @@ import { AssetType } from "../../core/asset";
 import actions from "../../store/actions";
 import { useDispatch } from "react-redux";
 import { useOperation } from "dlt-operations";
+import { useToken } from "../../store/token/hook";
+import { BigNumber } from "ethers";
 
-type DepositButtonState = "SELECT" | "DEPOSIT" | "WITHDRAW" | "PROCESSING";
+type DepositButtonState =
+  | "SELECT"
+  | "DEPOSIT"
+  | "ALLOWANCE"
+  | "WITHDRAW"
+  | "PROCESSING";
 
 export interface DepositButtonBarProps {
   asset: AssetType;
@@ -20,18 +27,41 @@ export function DepositButtonBar({
   const [withdrawSum, setWithdrawSum] = useState(0);
   const [hash, setHash] = useState("0");
 
+  useEffect(() => {
+    dispatch(actions.token.getTokenAllowance());
+  }, []);
+
   let view: React.ReactElement;
 
   const dispatch = useDispatch();
+  const { allowance } = useToken();
 
-  const onCommandPressed = (action: "deposit" | "withdraw") => {
+  const onCommandPressed = (action: "deposit" | "approve" | "withdraw") => {
     setState("PROCESSING");
     const newHash = Date.now().toString();
     setHash(newHash);
-    if (action === "deposit") {
-      dispatch(actions.wallet.depositAsset(asset, depositSum, newHash));
+    switch (action) {
+      case "deposit":
+        dispatch(actions.wallet.depositAsset(asset, depositSum, newHash));
+        break;
+      case "approve":
+        dispatch(actions.token.approveToken(depositSum, newHash));
+        break;
+      case "withdraw":
+        dispatch(actions.wallet.withdrawAsset(asset, withdrawSum, newHash));
+        break;
+    }
+  };
+
+  const depositNextAction = () => {
+    if (asset === "eth") {
+      setState("DEPOSIT");
     } else {
-      dispatch(actions.wallet.withdrawAsset(asset, withdrawSum, newHash));
+      setState(
+        BigNumber.from(allowance || 0).isZero()
+          ? "ALLOWANCE"
+          : "DEPOSIT"
+      );
     }
   };
 
@@ -55,7 +85,7 @@ export function DepositButtonBar({
     case "SELECT":
       view = (
         <>
-          <TransferButton onClick={() => setState("DEPOSIT")}>
+          <TransferButton onClick={depositNextAction}>
             Deposit &rarr;
           </TransferButton>
           <TransferButton onClick={() => setState("WITHDRAW")}>
@@ -70,6 +100,16 @@ export function DepositButtonBar({
           <SmartNumberInput onChangeNum={setDepositSum} />
           <TransferButton onClick={() => onCommandPressed("deposit")}>
             Deposit &rarr;
+          </TransferButton>
+        </>
+      );
+      break;
+    case "ALLOWANCE":
+      view = (
+        <>
+          <SmartNumberInput onChangeNum={setDepositSum} />
+          <TransferButton onClick={() => onCommandPressed("approve")}>
+            Approve
           </TransferButton>
         </>
       );

@@ -20,7 +20,7 @@ export function SwapBar(): React.ReactElement {
 
 
   const onApprove = () => {
-    if (vault) dispatch(actions.token.approveToken(vault.address, "1000"));
+    // if (vault) dispatch(actions.token.approveToken(vault.address, "1000"));
   };
   // const onDepositToken = () => dispatch(actions.vault.depositToken());
   // const onDepositEth = () => dispatch(actions.vault.depositEth());

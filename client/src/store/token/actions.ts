@@ -1,17 +1,17 @@
 import { updateStatus } from "dlt-operations";
 import { ThunkTokenAction } from "./index";
+import {toBN} from "../../utils/formatter";
 
 export const approveToken = (
-  spender: string,
-  amount: string,
+  amount: number,
   opHash?: string
 ): ThunkTokenAction => async (dispatch, getState) => {
   try {
-    const { token, signer } = getState().web3;
-    if (!token || !signer) {
+    const { token, signer, vault } = getState().web3;
+    if (!token || !signer || !vault) {
       throw new Error("Cant connect vault contract");
     }
-    await token.connect(signer).approve(spender, amount);
+    await token.connect(signer).approve(vault.address, toBN(amount));
   } catch (e) {
     console.log(e);
     dispatch(updateStatus(opHash, "STATUS.FAILURE", e?.message));
