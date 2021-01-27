@@ -3,6 +3,7 @@
  */
 import {App, AppStatus} from '../../core/app';
 import {RootState} from "../index";
+import {ThunkAction} from "redux-thunk";
 
 export type AppActions =
   | {
@@ -11,4 +12,11 @@ export type AppActions =
       error?: boolean;
     }
 
+
+export type ThunkAppAction = ThunkAction<
+    void,
+    RootState,
+    unknown,
+    AppActions
+    >
 export const appSelector = (state: RootState) => state.app;

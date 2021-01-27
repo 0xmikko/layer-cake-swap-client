@@ -2,9 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Ownable } from "./Ownable";
+export type { ERC20 } from "./ERC20";
 export type { IERC20 } from "./IERC20";
 export type { Vault } from "./Vault";
+export type { TokenMock } from "./TokenMock";
 
 export { Ownable__factory } from "./factories/Ownable__factory";
+export { ERC20__factory } from "./factories/ERC20__factory";
 export { IERC20__factory } from "./factories/IERC20__factory";
 export { Vault__factory } from "./factories/Vault__factory";
+export { TokenMock__factory } from "./factories/TokenMock__factory";

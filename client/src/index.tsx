@@ -4,10 +4,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import ReactGA from "react-ga";
 import { isMobile } from "react-device-detect";
-import App from "./App";
+import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import configureStore from "./store";
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from "./theme";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
 
@@ -44,7 +45,6 @@ ReactDOM.render(
         </Router>
       </ThemeProvider>
     </Provider>
-    ,
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -24,10 +24,14 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface VaultInterface extends ethers.utils.Interface {
   functions: {
     "depositEth()": FunctionFragment;
-    "depositToken(address,uint256)": FunctionFragment;
+    "depositToken(uint256)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "swapToEth(uint256)": FunctionFragment;
+    "swapToToken(uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "withdrawEth(uint256)": FunctionFragment;
+    "withdrawToken(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -36,7 +40,7 @@ interface VaultInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "depositToken",
-    values: [string, BigNumberish]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -44,8 +48,24 @@ interface VaultInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "swapToEth",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "swapToToken",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawEth",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawToken",
+    values: [BigNumberish]
   ): string;
 
   decodeFunctionResult(functionFragment: "depositEth", data: BytesLike): Result;
@@ -58,8 +78,21 @@ interface VaultInterface extends ethers.utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "swapToEth", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "swapToToken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawEth",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawToken",
     data: BytesLike
   ): Result;
 
@@ -70,6 +103,7 @@ interface VaultInterface extends ethers.utils.Interface {
     "OwnershipTransferred(address,address)": EventFragment;
     "SwapToETH(address,uint256)": EventFragment;
     "SwapToToken(address,uint256)": EventFragment;
+    "WithdrawETH(address,uint256)": EventFragment;
     "WithdrawLiquidity(address,uint256)": EventFragment;
     "WithdrawToken(address,uint256)": EventFragment;
   };
@@ -80,6 +114,7 @@ interface VaultInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SwapToETH"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SwapToToken"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawETH"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawLiquidity"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawToken"): EventFragment;
 }
@@ -103,13 +138,11 @@ export class Vault extends Contract {
     "depositEth()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
     depositToken(
-      sender: string,
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "depositToken(address,uint256)"(
-      sender: string,
+    "depositToken(uint256)"(
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
@@ -122,6 +155,26 @@ export class Vault extends Contract {
 
     "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
+    swapToEth(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "swapToEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    swapToToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "swapToToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides
@@ -131,6 +184,26 @@ export class Vault extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    withdrawEth(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "withdrawEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    withdrawToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "withdrawToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
   };
 
   depositEth(overrides?: PayableOverrides): Promise<ContractTransaction>;
@@ -138,13 +211,11 @@ export class Vault extends Contract {
   "depositEth()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
   depositToken(
-    sender: string,
     amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "depositToken(address,uint256)"(
-    sender: string,
+  "depositToken(uint256)"(
     amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -157,6 +228,26 @@ export class Vault extends Contract {
 
   "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
+  swapToEth(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "swapToEth(uint256)"(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  swapToToken(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "swapToToken(uint256)"(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   transferOwnership(
     newOwner: string,
     overrides?: Overrides
@@ -167,19 +258,37 @@ export class Vault extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  withdrawEth(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "withdrawEth(uint256)"(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  withdrawToken(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "withdrawToken(uint256)"(
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     depositEth(overrides?: CallOverrides): Promise<void>;
 
     "depositEth()"(overrides?: CallOverrides): Promise<void>;
 
     depositToken(
-      sender: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "depositToken(address,uint256)"(
-      sender: string,
+    "depositToken(uint256)"(
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -192,6 +301,20 @@ export class Vault extends Contract {
 
     "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
 
+    swapToEth(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "swapToEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    swapToToken(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "swapToToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     transferOwnership(
       newOwner: string,
       overrides?: CallOverrides
@@ -201,27 +324,46 @@ export class Vault extends Contract {
       newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    withdrawEth(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "withdrawEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    withdrawToken(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "withdrawToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
-    AddLiquidity(sender: null, amount: null): EventFilter;
+    AddLiquidity(sender: string | null, amount: null): EventFilter;
 
-    DepositETH(sender: null, amount: null): EventFilter;
+    DepositETH(sender: string | null, amount: null): EventFilter;
 
-    DepositToken(sender: null, amount: null): EventFilter;
+    DepositToken(sender: string | null, amount: null): EventFilter;
 
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
     ): EventFilter;
 
-    SwapToETH(sender: null, amount: null): EventFilter;
+    SwapToETH(sender: string | null, amount: null): EventFilter;
 
-    SwapToToken(sender: null, amount: null): EventFilter;
+    SwapToToken(sender: string | null, amount: null): EventFilter;
 
-    WithdrawLiquidity(sender: null, amount: null): EventFilter;
+    WithdrawETH(sender: string | null, amount: null): EventFilter;
 
-    WithdrawToken(sender: null, amount: null): EventFilter;
+    WithdrawLiquidity(sender: string | null, amount: null): EventFilter;
+
+    WithdrawToken(sender: string | null, amount: null): EventFilter;
   };
 
   estimateGas: {
@@ -230,13 +372,11 @@ export class Vault extends Contract {
     "depositEth()"(overrides?: PayableOverrides): Promise<BigNumber>;
 
     depositToken(
-      sender: string,
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "depositToken(address,uint256)"(
-      sender: string,
+    "depositToken(uint256)"(
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
@@ -249,6 +389,23 @@ export class Vault extends Contract {
 
     "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
 
+    swapToEth(amount: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
+
+    "swapToEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    swapToToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "swapToToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides
@@ -256,6 +413,26 @@ export class Vault extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    withdrawEth(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "withdrawEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    withdrawToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "withdrawToken(uint256)"(
+      amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
   };
@@ -266,13 +443,11 @@ export class Vault extends Contract {
     "depositEth()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
     depositToken(
-      sender: string,
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "depositToken(address,uint256)"(
-      sender: string,
+    "depositToken(uint256)"(
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
@@ -285,6 +460,26 @@ export class Vault extends Contract {
 
     "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
 
+    swapToEth(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "swapToEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    swapToToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "swapToToken(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides
@@ -292,6 +487,26 @@ export class Vault extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    withdrawEth(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawEth(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    withdrawToken(
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawToken(uint256)"(
+      amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
   };

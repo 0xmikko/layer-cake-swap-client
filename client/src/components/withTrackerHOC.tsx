@@ -1,5 +1,4 @@
 /*
- * Stackdrive. Self-order apps for business
  * Copyright (c) 2020. Mikhail Lazarev
  */
 

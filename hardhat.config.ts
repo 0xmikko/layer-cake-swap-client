@@ -3,22 +3,22 @@ import { HardhatUserConfig } from "hardhat/types";
 
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
-import "hardhat-typechain";
 import "@nomiclabs/hardhat-ethers";
+import "hardhat-typechain";
+import "hardhat-deploy";
+import "hardhat-deploy-ethers";
 
 // TODO: reenable solidity-coverage when it works
 import "solidity-coverage";
 
 dotEnvConfig();
-
 // import {task} from "hardhat/config";
 
 const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const RINKEBY_PRIVATE_KEY =
   process.env.RINKEBY_PRIVATE_KEY! ||
   "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"; // well known private key
-const BINANCE_TESTNET_PRIVATE_KEY =
-  process.env.BINANCE_TESTNET_PRIVATE_KEY || "";
+
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
@@ -28,7 +28,9 @@ const config: HardhatUserConfig = {
     compilers: [{ version: "0.6.12", settings: {} }],
   },
   networks: {
-    hardhat: {},
+    hardhat: {
+      chainId: 1337
+    },
     localhost: {},
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/${INFURA_API_KEY}`,
@@ -47,10 +49,7 @@ const config: HardhatUserConfig = {
     outDir: "types/ethers-v5",
     target: "ethers-v5",
   },
-  // typechain: {
-  //   outDir: "types/web3-v1-contracts",
-  //   target: "web3-v1",
-  // },
+  
 };
 
 export default config;

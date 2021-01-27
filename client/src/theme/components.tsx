@@ -4,8 +4,23 @@ import {Container} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const ContainerScreen = styled(Container)`
+export const ContainerCentered = styled(Container)`
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const InfoScreen = styled(Container)`
+  width: 100%;
   min-height: 100vh;
+  align-items: center;
+  padding: 0 !important;
+
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column
 `
 
 // An internal link from the react-router-dom library that is correctly styled

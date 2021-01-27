@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@polkadot/api": "^3.6.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -18,11 +19,13 @@
     "@types/redux-api-middleware": "^3.2.2",
     "@types/styled-components": "^5.1.7",
     "bootstrap": "^4.5.3",
-    "dlt-operations": "^0.0.4",
+    "dlt-operations": "^0.0.5",
+    "rc-analytics": "^0.0.9",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-device-detect": "^1.15.0",
     "react-dom": "^17.0.1",
+    "react-facebook-pixel": "^1.0.4",
     "react-ga": "^3.3.0",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.2",
@@ -40,10 +43,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewireds build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
@@ -62,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.8"
   }
 }

@@ -1,11 +1,18 @@
 import React from "react";
-import {Web3Error} from "../store/web3";
+import { InfoScreen } from "../theme";
+import styled from "styled-components";
+import {Web3Error} from "../core/web3";
 
 export interface Web3ConnectProps {
   error: Web3Error;
 }
 
-export function Web3Connect({error}: Web3ConnectProps): React.ReactElement {
+export const LogoImg = styled.img`
+  height: 120px;
+  margin-bottom: 20px;
+`;
+
+export function Web3Connect({ error }: Web3ConnectProps): React.ReactElement {
   let message = "";
   switch (error) {
     default:
@@ -14,14 +21,14 @@ export function Web3Connect({error}: Web3ConnectProps): React.ReactElement {
       break;
     case "WRONG_NETWORK_ERROR":
       message =
-        "Sorry, this solution works on BNB network only. Please, switch your metamask and reload the page.";
+        "Sorry, this solution works on testnet network only. Please, switch your metamask and reload the page.";
       break;
   }
 
   return (
-    <div className={"onescreen"} style={{flexDirection: "column"}}>
-      <img src={"/logo.png"} alt={"Logo"} style={{height: "120px"}} />
-      <h5 style={{marginTop: "20px"}}>{message}</h5>
-    </div>
+    <InfoScreen>
+      <LogoImg src={"/logo.png"} alt={"Logo"} />
+      <h5>{message}</h5>
+    </InfoScreen>
   );
 }
