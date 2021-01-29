@@ -10,4 +10,5 @@ export interface Asset {
     l2Balance: BigNumber;
     allowance: BigNumber;
     decimals: number;
+    icon?: string;
 }

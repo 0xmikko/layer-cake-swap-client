@@ -8,14 +8,12 @@ import {HBar} from "../../theme";
 
 export interface TransferCardProps {
   asset: AssetType;
-  icon: string;
 }
 
 export function TransferCard({
   asset,
-  icon,
 }: TransferCardProps): React.ReactElement {
-  const { name, decimals, mainBalance, l2Balance } = useAssets(asset);
+  const { name, decimals, mainBalance, l2Balance, icon } = useAssets(asset);
 
   return (
     <TransferCardContainer>
