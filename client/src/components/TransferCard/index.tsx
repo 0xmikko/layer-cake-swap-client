@@ -1,9 +1,10 @@
 import React from "react";
-import {AssetTitle, HorizontalContainer, TransferCardContainer,} from "./styles";
+import {AssetTitle, TransferCardContainer,} from "./styles";
 import {DepositButtonBar} from "../DepositButtonBar";
 import {AssetType} from "../../core/asset";
 import {useAssets} from "../../store/wallet/hook";
 import {DoubleIndicator} from "../DoubleIndicator";
+import {HBar} from "../../theme";
 
 export interface TransferCardProps {
   asset: AssetType;
@@ -18,10 +19,10 @@ export function TransferCard({
 
   return (
     <TransferCardContainer>
-      <HorizontalContainer>
+      <HBar>
         <img src={icon} height={"20px"} />
         <AssetTitle> {name}</AssetTitle>
-      </HorizontalContainer>
+      </HBar>
       <DoubleIndicator
         leftTitle={"Wallet"}
         leftValue={mainBalance}

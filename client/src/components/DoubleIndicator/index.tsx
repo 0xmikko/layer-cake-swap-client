@@ -1,9 +1,9 @@
 import React from "react";
-import {StyledCard} from "../SwapBar/styles";
 import {DoubleBar,} from "./styles";
 import {AmountIndicator} from "../AmountIndicator";
 import {formatBN} from "../../utils/formatter";
 import {BigNumberish} from "ethers";
+import { StyledCard } from "../../theme/components";
 
 export interface DoubleIndicatorProps {
   leftTitle: string,

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {ButtonT} from "../../theme";
 
 export const ButtonBar = styled.div`
   display: flex;
@@ -8,10 +7,3 @@ export const ButtonBar = styled.div`
   max-width: 100%;
 `;
 
-export const TransferButton = styled(ButtonT)`
-  min-width: 40%;
-`;
-
-export const ProcessingButton = styled(TransferButton)`
-  min-width: 100%;
-`;

@@ -1,9 +1,10 @@
 import React, { HTMLProps, useCallback } from "react";
 import ReactGA from "react-ga";
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {Button} from "rebass";
+import { Button } from "react-bootstrap";
+import {Card} from "rebass";
 
 export const ContainerCentered = styled(Container)`
   min-height: calc(100vh - 110px);
@@ -14,9 +15,9 @@ export const ContainerCentered = styled(Container)`
   @media only screen and (max-width: 600px) {
     align-items: flex-start;
     padding: 40px 0 0 0;
-    background-color: #292c3f!important;
+    background-color: #292c3f !important;
   }
-`
+`;
 
 export const InfoScreen = styled(Container)`
   width: 100%;
@@ -27,8 +28,8 @@ export const InfoScreen = styled(Container)`
   display: flex;
   text-align: center;
   justify-content: center;
-  flex-direction: column
-`
+  flex-direction: column;
+`;
 
 // An internal link from the react-router-dom library that is correctly styled
 export const StyledInternalLink = styled(Link)`
@@ -106,13 +107,61 @@ export function ExternalLink({
 export const ButtonT = styled(Button)`
   background-color: #a31f43;
   border-color: #626473;
-  border-radius: 10px!important;
-  color: #fafafa!important;
-  
-  :hover, :focus {
-    color: white!important;
-    background-color: #a31f43!important;
-    border-color: #626473;
+  border-radius: 10px !important;
+  color: #fafafa !important;
+
+  :hover,
+  :focus {
+    color: white !important;
+    background-color: #a31f43 !important;
+    //border-color: #626473;
+    border-width: 0!important;
     border-radius: 10px;
   }
-`
+`;
+
+export const Button40W = styled(ButtonT)`
+  min-width: 40%;
+`;
+
+export const Button100W = styled(ButtonT)`
+  min-width: 100%;
+`;
+
+export const StyledCard = styled(Card)`
+  border-radius: 20px;
+  border: 1px solid white;
+  padding: 20px 30px 12px 30px;
+`;
+
+export const CardMainS = styled(Card)`
+  //min-height: 500px;
+  min-width: 400px!important;
+  border-radius: 40px;
+  background-color: #292c3f;
+  padding: 30px 20px 40px 20px;
+
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+    margin: 0;
+    border-radius: 0px;
+  }
+`;
+
+export const HBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  text-align: center;
+ 
+`;
+
+export const RateTitle = styled.h3`
+  width: 100%;
+  font-size: 18px;
+  margin-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+`;
+

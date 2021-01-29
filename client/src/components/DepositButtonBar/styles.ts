@@ -9,11 +9,3 @@ export const ButtonBar = styled.div`
   margin-top: 10px;
 `;
 
-export const TransferButton = styled(ButtonT)`
-  min-width: 40%;
-
-`;
-
-export const ProcessingButton = styled(TransferButton)`
-  min-width: 100%;
-`;

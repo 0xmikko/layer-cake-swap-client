@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {ButtonBar, ProcessingButton, TransferButton} from "./styles";
+import {ButtonBar} from "./styles";
 import {SmartNumberInput} from "../SmartNumberInput";
 import actions from "../../store/actions";
 import {useDispatch} from "react-redux";
 import {useOperation} from "dlt-operations";
 import {useToken} from "../../store/token/hook";
+import {Button100W, Button40W} from "../../theme";
 
 type LiquidityButtonState =
   | "SELECT"
@@ -54,12 +55,12 @@ export function LiquidityButtonBar(): React.ReactElement {
     case "SELECT":
       view = (
         <>
-          <TransferButton onClick={() => setState("ADD")}>
+          <Button40W onClick={() => setState("ADD")}>
             Add &rarr;
-          </TransferButton>
-          <TransferButton onClick={() => setState("REMOVE")}>
+          </Button40W>
+          <Button40W onClick={() => setState("REMOVE")}>
             &larr; Remove
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
@@ -67,9 +68,9 @@ export function LiquidityButtonBar(): React.ReactElement {
       view = (
         <>
           <SmartNumberInput onChangeNum={setLiquiditySum} />
-          <TransferButton onClick={() => onCommandPressed("add")}>
+          <Button40W onClick={() => onCommandPressed("add")}>
             Add &rarr;
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
@@ -77,14 +78,14 @@ export function LiquidityButtonBar(): React.ReactElement {
       view = (
         <>
           <SmartNumberInput onChangeNum={setLiquiditySum} />
-          <TransferButton onClick={() => onCommandPressed("remove")}>
+          <Button40W onClick={() => onCommandPressed("remove")}>
             &larr; Remove
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
     case "PROCESSING":
-      view = <ProcessingButton>Processing...</ProcessingButton>;
+      view = <Button100W>Processing...</Button100W>;
       break;
   }
 

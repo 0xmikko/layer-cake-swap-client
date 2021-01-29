@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ButtonBar, ProcessingButton, TransferButton } from "./styles";
-import { SmartNumberInput } from "../SmartNumberInput";
-import { AssetType } from "../../core/asset";
+import React, {useEffect, useState} from "react";
+import {ButtonBar} from "./styles";
+import {SmartNumberInput} from "../SmartNumberInput";
+import {AssetType} from "../../core/asset";
 import actions from "../../store/actions";
-import { useDispatch } from "react-redux";
-import { useOperation } from "dlt-operations";
-import { useToken } from "../../store/token/hook";
-import { BigNumber } from "ethers";
+import {useDispatch} from "react-redux";
+import {useOperation} from "dlt-operations";
+import {useToken} from "../../store/token/hook";
+import {BigNumber} from "ethers";
+import {Button100W, Button40W} from "../../theme";
 
 type DepositButtonState =
   | "SELECT"
@@ -85,12 +86,12 @@ export function DepositButtonBar({
     case "SELECT":
       view = (
         <>
-          <TransferButton onClick={depositNextAction}>
+          <Button40W onClick={depositNextAction}>
             Deposit &rarr;
-          </TransferButton>
-          <TransferButton onClick={() => setState("WITHDRAW")}>
+          </Button40W>
+          <Button40W onClick={() => setState("WITHDRAW")}>
             &larr; Withdraw
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
@@ -98,9 +99,9 @@ export function DepositButtonBar({
       view = (
         <>
           <SmartNumberInput onChangeNum={setDepositSum} />
-          <TransferButton onClick={() => onCommandPressed("deposit")}>
+          <Button40W onClick={() => onCommandPressed("deposit")}>
             Deposit &rarr;
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
@@ -108,9 +109,9 @@ export function DepositButtonBar({
       view = (
         <>
           <SmartNumberInput onChangeNum={setDepositSum} />
-          <TransferButton onClick={() => onCommandPressed("approve")}>
+          <Button40W onClick={() => onCommandPressed("approve")}>
             Approve
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
@@ -118,14 +119,14 @@ export function DepositButtonBar({
       view = (
         <>
           <SmartNumberInput onChangeNum={setWithdrawSum} />
-          <TransferButton onClick={() => onCommandPressed("withdraw")}>
+          <Button40W onClick={() => onCommandPressed("withdraw")}>
             &larr; Withdraw
-          </TransferButton>
+          </Button40W>
         </>
       );
       break;
     case "PROCESSING":
-      view = <ProcessingButton>Processing...</ProcessingButton>;
+      view = <Button100W>Processing...</Button100W>;
       break;
   }
 
