@@ -6,6 +6,7 @@ export function SwapScreen(): React.ReactElement {
   return (
     <ContainerCentered>
       <SwapBar />
+
     </ContainerCentered>
   );
 }

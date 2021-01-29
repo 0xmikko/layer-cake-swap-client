@@ -23,6 +23,7 @@
     "rc-analytics": "^0.0.9",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
+    "react-cookie-consent": "^6.2.2",
     "react-device-detect": "^1.15.0",
     "react-dom": "^17.0.1",
     "react-facebook-pixel": "^1.0.4",

@@ -9,7 +9,6 @@ export const StyledNavBar = styled(Navbar)`
   border: 0;
   border-bottom: 1px solid #333;
   padding-bottom: 8px;
-  //justify-content: space-between;
 `;
 
 export const NavBarLogo = styled.img`
@@ -20,6 +19,7 @@ export const NavBarMenu = styled(Navbar)`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+  padding-right: 0;
 `;
 
 export const NavBarCenter = styled(Nav)`
@@ -32,7 +32,7 @@ export const NavBarCenter = styled(Nav)`
 `;
 
 export const NavBarRight = styled(Navbar)`
-  padding: 0 15px;
+  padding: 0 15px 0 0;
   margin-left: auto;
   align-items: center;
   justify-content: flex-end;

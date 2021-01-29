@@ -4,12 +4,18 @@
  */
 
 import React from "react";
-import {Navbar} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {AppBarElement} from "./AppBarElement";
+import { Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { AppBarElement } from "./AppBarElement";
 import logo from "../../assets/logo.png";
-import {NavBarCenter, NavBarLogo, NavBarMenu, NavBarRight, StyledNavBar} from "./styles";
-import {AppBarWallet} from "../AppBarWallet";
+import {
+  NavBarCenter,
+  NavBarLogo,
+  NavBarMenu,
+  NavBarRight,
+  StyledNavBar,
+} from "./styles";
+import { AppBarWallet } from "../AppBarWallet";
 
 export function AppBar(): React.ReactElement {
   return (
@@ -27,7 +33,7 @@ export function AppBar(): React.ReactElement {
           <AppBarElement title="Pool" to="/pool" key="pool" />
         </NavBarCenter>
         <NavBarRight>
-          <AppBarWallet/>
+          <AppBarWallet />
         </NavBarRight>
       </NavBarMenu>
     </StyledNavBar>

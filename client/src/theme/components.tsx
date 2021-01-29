@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {Button} from "rebass";
 
 export const ContainerCentered = styled(Container)`
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 110px);
   display: flex;
   align-items: center;
   justify-content: center;

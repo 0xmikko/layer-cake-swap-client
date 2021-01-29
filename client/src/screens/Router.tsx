@@ -5,6 +5,7 @@ import {SwapScreen} from "./SwapScreen";
 import {WalletScreen} from "./WalletScreen";
 import {AppBar} from "../components/AppBar";
 import {PoolScreen} from "./PoolScreen";
+import { Footer } from "../components/Footer";
 
 export function Router(): React.ReactElement {
     return (
@@ -24,6 +25,7 @@ export function Router(): React.ReactElement {
                 />
                 <Redirect to={"/"}/>
             </Switch>
+            <Footer />
         </>
     );
 }
