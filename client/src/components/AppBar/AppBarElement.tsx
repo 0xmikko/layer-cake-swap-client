@@ -1,12 +1,9 @@
 /*
- * Blue1984 - Twitter without censorship
- * Copyright (c) 2020. Mikhail Lazarev
- * https://github.com/MikaelLazarev/blue1984-server
  *
  */
 
 import React from 'react';
-import {StyledNavLink, StyledNavLinkItem} from './components';
+import {StyledNavLink, StyledNavLinkItem} from './styles';
 
 interface AppBarElementProps {
   title: string;

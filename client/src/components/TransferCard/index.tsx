@@ -1,16 +1,9 @@
 import React from "react";
-import { StyledCard } from "../SmartField/styles";
-import {
-  AssetTitle,
-  HorizontalContainer,
-  TransferCardContainer,
-} from "./styles";
-import { AmountIndicator } from "./AmountIndicator";
-import { formatBN } from "../../utils/formatter";
-import { DepositButtonBar } from "../DepositButtonBar";
-import { ButtonBar } from "../DepositButtonBar/styles";
-import { AssetType } from "../../core/asset";
-import { useAssets } from "../../store/wallet/hook";
+import {AssetTitle, HorizontalContainer, TransferCardContainer,} from "./styles";
+import {DepositButtonBar} from "../DepositButtonBar";
+import {AssetType} from "../../core/asset";
+import {useAssets} from "../../store/wallet/hook";
+import {DoubleIndicator} from "../DoubleIndicator";
 
 export interface TransferCardProps {
   asset: AssetType;
@@ -29,19 +22,14 @@ export function TransferCard({
         <img src={icon} height={"20px"} />
         <AssetTitle> {name}</AssetTitle>
       </HorizontalContainer>
-      <StyledCard>
-        <ButtonBar>
-          <AmountIndicator
-            title={"Wallet"}
-            amount={formatBN(mainBalance, decimals)}
-          />
-          <AmountIndicator
-            title={"Deposited"}
-            amount={formatBN(l2Balance, decimals)}
-            align={"right"}
-          />
-        </ButtonBar>
-      </StyledCard>
+      <DoubleIndicator
+        leftTitle={"Wallet"}
+        leftValue={mainBalance}
+        leftDecimals={decimals}
+        rightTitle={"Deposited"}
+        rightValue={l2Balance}
+        rightDecimals={decimals}
+      />
       <DepositButtonBar asset={asset} />
     </TransferCardContainer>
   );

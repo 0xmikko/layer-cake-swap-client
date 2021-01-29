@@ -3,12 +3,19 @@ import ReactGA from "react-ga";
 import {Container} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {Button} from "rebass";
 
 export const ContainerCentered = styled(Container)`
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    align-items: flex-start;
+    padding: 40px 0 0 0;
+    background-color: #292c3f!important;
+  }
 `
 
 export const InfoScreen = styled(Container)`
@@ -95,3 +102,17 @@ export function ExternalLink({
     />
   );
 }
+
+export const ButtonT = styled(Button)`
+  background-color: #a31f43;
+  border-color: #626473;
+  border-radius: 10px!important;
+  color: #fafafa!important;
+  
+  :hover, :focus {
+    color: white!important;
+    background-color: #a31f43!important;
+    border-color: #626473;
+    border-radius: 10px;
+  }
+`

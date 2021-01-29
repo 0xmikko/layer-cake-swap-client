@@ -12,6 +12,7 @@ export const approveToken = (
       throw new Error("Cant connect vault contract");
     }
     await token.connect(signer).approve(vault.address, toBN(amount));
+    dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
   } catch (e) {
     console.log(e);
     dispatch(updateStatus(opHash, "STATUS.FAILURE", e?.message));

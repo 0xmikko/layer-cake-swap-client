@@ -10,9 +10,31 @@ export const SmartInput = styled(Form.Control)`
   width: 55%;
   border-radius: 10px;
   text-align: right;
+  font-weight: bold;
 
   :focus {
     background-color: #35383c;
     color: white;
   }
+`;
+
+export const EmbeddedSmartInput = styled(Form.Control)`
+  background-color: transparent;
+  color: white;
+  width: 55%;
+  text-align: left;
+  border-width: 0;
+  font-weight: bold;
+  
+  :disabled, :focus {
+    background-color: transparent;
+    color: white;
+    border-width: 0;
+    outline: none!important;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  
+  padding: 0;
 `;

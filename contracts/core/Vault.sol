@@ -40,7 +40,7 @@ contract Vault is Ownable {
 
     // Liquidity pool
     event AddLiquidity(address indexed sender, uint256 amount);
-    event WithdrawLiquidity(address indexed sender, uint256 amount);
+    event RemoveLiquidity(address indexed sender, uint256 amount);
 
     constructor(address tokenAddress) public {
         _tokenAddress = tokenAddress;
@@ -72,4 +72,11 @@ contract Vault is Ownable {
         emit SwapToETH(msg.sender, amount);
     }
 
+    function addLiquidity(uint256 amount) external {
+        emit AddLiquidity(msg.sender, amount);
+    }
+
+    function removeLiquidity(uint256 amount) external {
+        emit RemoveLiquidity(msg.sender, amount);
+    }
 }

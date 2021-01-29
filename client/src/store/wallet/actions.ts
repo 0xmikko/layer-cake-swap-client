@@ -54,6 +54,9 @@ const vaultAction = (
         ? await vault.connect(signer).withdrawEth(toBN(amount))
         : await vault.connect(signer).withdrawToken(toBN(amount));
 
+
+    await receipt.wait();
+    dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
     await receipt.wait(2);
     await dispatch(getBalance(asset, opHash));
   } catch (e) {

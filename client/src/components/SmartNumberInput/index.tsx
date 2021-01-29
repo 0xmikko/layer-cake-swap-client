@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { SmartInput } from "./styles";
+import { EmbeddedSmartInput, SmartInput } from "./styles";
 import { isPositiveFloat } from "../../utils/validate";
 
 export interface SmartNumberInputProps {
   onChangeNum: (value: number) => void;
+  amount?: number
   max?: number;
+  embedded?: boolean;
+  disabled?: boolean;
 }
 
 export function SmartNumberInput({
   onChangeNum,
+    amount,
   max,
+  embedded,
+  disabled,
 }: SmartNumberInputProps): React.ReactElement {
   const [value, setValue] = useState("0");
   const [overflow, setOverflow] = useState(false);
@@ -24,5 +30,19 @@ export function SmartNumberInput({
     if (max) setOverflow(valueFloat > max);
   };
 
-  return <SmartInput overflow={overflow} onChange={onChange} value={value} />;
+  return embedded ? (
+    <EmbeddedSmartInput
+      overflow={overflow}
+      onChange={onChange}
+      value={amount || value}
+      disabled={disabled}
+    />
+  ) : (
+    <SmartInput
+      overflow={overflow}
+      onChange={onChange}
+      value={amount || value}
+      disabled={disabled}
+    />
+  );
 }

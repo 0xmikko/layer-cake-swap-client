@@ -8,12 +8,12 @@ import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {AppBarElement} from "./AppBarElement";
 import logo from "../../assets/logo.png";
-import {NavBarCenter, NavBarLogo, NavBarMenu, NavBarRight, StyledConnectButton, StyledNavBar} from "./components";
+import {NavBarCenter, NavBarLogo, NavBarMenu, NavBarRight, StyledNavBar} from "./styles";
 import {AppBarWallet} from "../AppBarWallet";
 
 export function AppBar(): React.ReactElement {
   return (
-    <StyledNavBar expand="md">
+    <StyledNavBar>
       <Navbar.Brand>
         <Link to="/">
           <NavBarLogo src={logo} alt={"Logo"} />
@@ -30,7 +30,6 @@ export function AppBar(): React.ReactElement {
           <AppBarWallet/>
         </NavBarRight>
       </NavBarMenu>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
     </StyledNavBar>
   );
 }

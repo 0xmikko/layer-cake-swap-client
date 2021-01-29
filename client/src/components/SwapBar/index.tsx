@@ -1,38 +1,72 @@
 import React, {useEffect, useState} from "react";
-import { StyledSwapCard } from "./styles";
-import { BigButton } from "../Button";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch} from "react-redux";
+import {DarrContainerS, InputBlockS, StyledCard, StyledSwapCard, SwapButtonS} from "./styles";
+import {AmountInput} from "../AmountInput";
+import {CurrencySelector} from "../CurrencySelector";
+import {AssetType} from "../../core/asset";
+import {usePool} from "../../store/pool/hook";
+import {HorizontalContainer, RateTitle} from "../PoolCard/styles";
 import actions from "../../store/actions";
-import { web3Selector } from "../../store/web3";
-import { SmartField } from "../SmartField";
-import { Text } from "rebass";
-import {useToken} from "../../store/token/hook";
 
-export function SwapBar(): React.ReactElement {
+
+export interface SmartFieldProps {}
+
+export function SwapBar({}: SmartFieldProps): React.ReactElement {
+  const [target, setTarget] = useState<AssetType>("token");
+  const [source, setSource] = useState<AssetType>("eth");
+  const [amount, setAmount] = useState(0);
+
   const dispatch = useDispatch();
-  const { vault } = useSelector(web3Selector);
-
-  const [hash, setHash] = useState("0");
-
   useEffect(() => {
-      dispatch(actions.token.getTokenBalance());
-  }, [])
+    dispatch(actions.pool.updatePool());
+  }, []);
 
+  const { rate } = usePool();
 
-  const onApprove = () => {
-    // if (vault) dispatch(actions.token.approveToken(vault.address, "1000"));
+  const anotherAsset = (a: AssetType) => (a === "eth" ? "token" : "eth");
+
+  const onSelect = (a: AssetType, selector: "src" | "trg") => {
+    setSource(selector === "src" ? a : anotherAsset(a));
+    setTarget(selector === "trg" ? a : anotherAsset(a));
   };
-  // const onDepositToken = () => dispatch(actions.vault.depositToken());
-  // const onDepositEth = () => dispatch(actions.vault.depositEth());
 
-    const {balance} = useToken();
+  const currentRate = target === "token" ? rate : 1 / rate;
+  const swapButtonText =
+    target === "token" ? "Swap ETH to Token" : "Swap token to ETH";
+
+  const onSwap = () => {};
 
   return (
     <StyledSwapCard>
       <h1>Swap</h1>
-      <SmartField direction={"From"} currency={"Token"} amount={balance || "0"} />
-      <SmartField direction={"To"} currency={"Eth"} amount={balance || "0"} />
-      <BigButton onClick={onApprove}>Approve Token</BigButton>
+      <HorizontalContainer>
+        <RateTitle> Rate: {currentRate.toFixed(4)}</RateTitle>
+      </HorizontalContainer>
+      <StyledCard>
+        <InputBlockS>
+          <AmountInput
+            title={"From"}
+            amount={amount / currentRate}
+            disabled={true}
+          />
+          <CurrencySelector
+            selected={source}
+            onSelect={(a) => onSelect(a, "src")}
+          />
+        </InputBlockS>
+      </StyledCard>
+        <DarrContainerS>&darr;</DarrContainerS>
+      <StyledCard>
+        <InputBlockS>
+          <AmountInput title={"To"} amount={amount} setAmount={setAmount} />
+          <CurrencySelector
+            selected={target}
+            onSelect={(a) => onSelect(a, "trg")}
+          />
+        </InputBlockS>
+      </StyledCard>
+
+      <SwapButtonS onClick={onSwap}>{swapButtonText}</SwapButtonS>
     </StyledSwapCard>
   );
 }
