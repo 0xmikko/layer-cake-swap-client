@@ -11,6 +11,7 @@ export const approveToken = (
     if (!token || !signer || !vault) {
       throw new Error("Cant connect vault contract");
     }
+    // @ts-ignore : Vercel: Property 'address' does not exist on type 'Vault'.  TS2339
     await token.connect(signer).approve(vault.address, toBN(amount));
     dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
   } catch (e) {
