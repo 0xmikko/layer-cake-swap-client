@@ -24,6 +24,7 @@ export const connectWeb3 = (): ThunkWeb3Action => async (dispatch) => {
       });
       const signer = provider.getSigner();
 
+
       const networkId = await provider.detectNetwork();
       console.log("NID", await signer.getAddress());
 

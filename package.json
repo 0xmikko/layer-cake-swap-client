@@ -29,7 +29,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile && yarn update_abi",
     "deploy-local": "yarn build && yarn deploy --network localhost",
-    "deploy-rinkeby": "yarn build && yarn deploy --network rinkeby",
+    "deploy-ropsten": "yarn build && yarn deploy --network ropsten",
     "deploy": "npx hardhat run ./scripts/deploy.ts",
     "clean": "npx hardhat clean",
     "compile": "npx hardhat compile",
