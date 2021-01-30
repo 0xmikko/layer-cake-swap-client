@@ -50,6 +50,7 @@ export const getTokenAllowance = (opHash?: string): ThunkTokenAction => async (
     }
     const allowance = await token
       .connect(signer)
+      // @ts-ignore : Vercel: Property 'address' does not exist on type 'Vault'.  TS2339
       .allowance(account, vault.address);
     dispatch({ type: "TOKEN_UPDATE_ALLOWANCE", payload: { allowance } });
   } catch (e) {
