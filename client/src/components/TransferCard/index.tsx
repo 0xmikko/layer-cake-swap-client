@@ -1,18 +1,17 @@
 import React from "react";
-import {AssetTitle, TransferCardContainer,} from "./styles";
-import {DepositButtonBar} from "../DepositButtonBar";
-import {AssetType} from "../../core/asset";
-import {useAssets} from "../../store/wallet/hook";
-import {DoubleIndicator} from "../DoubleIndicator";
-import {HBar} from "../../theme";
+import { AssetTitle, TransferCardContainer } from "./styles";
+import { DepositButtonBar } from "../DepositButtonBar";
+import { AssetType } from "../../core/asset";
+import { useAssets } from "../../store/wallet/hook";
+import { DoubleIndicator } from "../DoubleIndicator";
+import { HBar, VSpace } from "../../theme";
+import { Web3ButtonWrapper } from "../Buttons";
 
 export interface TransferCardProps {
   asset: AssetType;
 }
 
-export function TransferCard({
-  asset,
-}: TransferCardProps): React.ReactElement {
+export function TransferCard({ asset }: TransferCardProps): React.ReactElement {
   const { name, decimals, mainBalance, l2Balance, icon } = useAssets(asset);
 
   return (
@@ -29,7 +28,10 @@ export function TransferCard({
         rightValue={l2Balance}
         rightDecimals={decimals}
       />
-      <DepositButtonBar asset={asset} />
+      <VSpace height={12} />
+      <Web3ButtonWrapper>
+        <DepositButtonBar asset={asset} />
+      </Web3ButtonWrapper>
     </TransferCardContainer>
   );
 }

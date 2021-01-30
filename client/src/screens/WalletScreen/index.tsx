@@ -2,14 +2,14 @@ import React, {useEffect} from "react";
 import {TransferCard} from "../../components/TransferCard";
 import {useDispatch} from "react-redux";
 import actions from "../../store/actions";
+import {useWeb3} from "../../store/web3/hook";
 
 export function WalletScreen(): React.ReactElement {
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(actions.wallet.getBalance("eth"));
-    dispatch(actions.wallet.getBalance("token"));
-  }, []);
+  const dispatch = useDispatch();
+  const {provider } = useWeb3();
+
+
 
   return (
     <>

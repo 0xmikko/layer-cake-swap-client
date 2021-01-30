@@ -2,8 +2,8 @@
  * Copyright (c) 2020. Mikael Lazarev
  */
 
-import {App, AppStatus, defaultApp} from "../../core/app";
-import {ThunkAppAction} from "./index";
+import { App, AppStatus, defaultApp } from "../../core/app";
+import { AppActions, ThunkAppAction } from "./index";
 
 // Get user app from server
 export const getApp = (): ThunkAppAction => async (dispatch) => {
@@ -15,6 +15,7 @@ export const getApp = (): ThunkAppAction => async (dispatch) => {
     });
     return;
   }
+
   await dispatch({
     type: "APP_SUCCESS",
     payload: JSON.parse(appStr),
@@ -37,3 +38,12 @@ export const updateStatus = (status: AppStatus): ThunkAppAction => async (
   app.status = status;
   dispatch(updateApp(app));
 };
+
+export const showModal = (title: string, body: string): AppActions => ({
+  type: "APP_SHOW_MODAL",
+  payload: { title, body },
+});
+
+export const hideModal = () : AppActions => ({
+  type: "APP_HIDE_MODAL"
+})

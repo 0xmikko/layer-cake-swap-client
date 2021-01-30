@@ -7,5 +7,5 @@ export interface App {
 
 export const defaultApp: App = {
   darkMode: false,
-  status: "NEW"
+  status: "NEW",
 };

@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {ButtonBar} from "./styles";
-import {SmartNumberInput} from "../SmartNumberInput";
-import {AssetType} from "../../core/asset";
+import React, { useEffect, useState } from "react";
+import { ButtonBar } from "./styles";
+import { SmartNumberInput } from "../SmartNumberInput";
+import { AssetType } from "../../core/asset";
 import actions from "../../store/actions";
-import {useDispatch} from "react-redux";
-import {useOperation} from "dlt-operations";
-import {useToken} from "../../store/token/hook";
-import {BigNumber} from "ethers";
-import {Button100W, Button40W} from "../../theme";
+import { useDispatch } from "react-redux";
+import { useOperation } from "dlt-operations";
+import { useToken } from "../../store/token/hook";
+import { BigNumber } from "ethers";
+import { Button100W, Button40W } from "../Buttons/styles";
 
 type DepositButtonState =
   | "SELECT"
@@ -27,20 +27,22 @@ export function DepositButtonBar({
   const [depositSum, setDepositSum] = useState(0);
   const [withdrawSum, setWithdrawSum] = useState(0);
   const [hash, setHash] = useState("0");
+  const [action, setAction] = useState("");
+
+  const dispatch = useDispatch();
+  const { allowance, balance } = useToken();
 
   useEffect(() => {
     dispatch(actions.token.getTokenAllowance());
-  }, []);
+  }, [balance]);
 
   let view: React.ReactElement;
-
-  const dispatch = useDispatch();
-  const { allowance } = useToken();
 
   const onCommandPressed = (action: "deposit" | "approve" | "withdraw") => {
     setState("PROCESSING");
     const newHash = Date.now().toString();
     setHash(newHash);
+    setAction(action);
     switch (action) {
       case "deposit":
         dispatch(actions.wallet.depositAsset(asset, depositSum, newHash));
@@ -59,9 +61,7 @@ export function DepositButtonBar({
       setState("DEPOSIT");
     } else {
       setState(
-        BigNumber.from(allowance || 0).isZero()
-          ? "ALLOWANCE"
-          : "DEPOSIT"
+        BigNumber.from(allowance || 0).isZero() ? "ALLOWANCE" : "DEPOSIT"
       );
     }
   };
@@ -72,10 +72,20 @@ export function DepositButtonBar({
     if (hash !== "0") {
       switch (operation?.status) {
         case "STATUS.SUCCESS":
+          const amount = action === "withdraw" ? withdrawSum : depositSum;
+          dispatch(
+            actions.modal.show(
+              "Operation submitted",
+              `You ${action} operation from for ${amount} was successfully submitted`
+            )
+          );
           setState("SELECT");
           break;
         case "STATUS.FAILURE":
-          alert(operation?.error);
+          dispatch(
+            actions.modal.show("Error", operation?.error || "Unknown error")
+          );
+          setHash("0");
           setState("SELECT");
           break;
       }
@@ -86,9 +96,7 @@ export function DepositButtonBar({
     case "SELECT":
       view = (
         <>
-          <Button40W onClick={depositNextAction}>
-            Deposit &rarr;
-          </Button40W>
+          <Button40W onClick={depositNextAction}>Deposit &rarr;</Button40W>
           <Button40W onClick={() => setState("WITHDRAW")}>
             &larr; Withdraw
           </Button40W>

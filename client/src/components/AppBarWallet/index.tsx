@@ -1,9 +1,11 @@
-import React, {useEffect} from "react";
-import {useWeb3} from "../../store/web3/hook";
-import {useDispatch} from "react-redux";
+import React, { useEffect } from "react";
+import { useWeb3 } from "../../store/web3/hook";
+import { useDispatch } from "react-redux";
 import actions from "../../store/actions";
-import {StyledConnectButton} from "./styles";
-import {shortAddress} from "../../utils/formatter";
+import { ConnectButtonErrorS, ConnectButtonS } from "./styles";
+import { shortAddress } from "../../utils/formatter";
+import { errorByCode } from "../../core/errors";
+import { Web3Error } from "../../core/web3";
 
 export function AppBarWallet() {
   const dispatch = useDispatch();
@@ -15,37 +17,37 @@ export function AppBarWallet() {
   };
 
   useEffect(() => {
-    console.log("STATUS", status);
-    switch (status) {
-      case "WEB3_STARTUP":
-        connect();
-        break;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status]);
+    if (status === "WEB3_STARTUP") connect();
+  }, [status, window.ethereum]);
 
-  useEffect(() => {
-    connect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.ethereum]);
+  const onError = (e: Web3Error | undefined) => {
+    const msg = errorByCode(e);
+    dispatch(actions.modal.show(msg.title, msg.description));
+  };
 
   switch (status) {
     default:
     case "WEB3_STARTUP":
       return (
-        <StyledConnectButton style={{ whiteSpace: "nowrap" }} onClick={connect}>
+        <ConnectButtonS style={{ whiteSpace: "nowrap" }} onClick={connect}>
           Connect web3
-        </StyledConnectButton>
+        </ConnectButtonS>
       );
     case "WEB3_CONNECTED":
       return (
-        <StyledConnectButton style={{ whiteSpace: "nowrap" }}>
+        <ConnectButtonS style={{ whiteSpace: "nowrap" }}>
           {shortAddress(account)}
-        </StyledConnectButton>
+        </ConnectButtonS>
       );
     case "NO_WEB3":
-      return <StyledConnectButton style={{ whiteSpace: "nowrap" }}>
-        SHIT
-      </StyledConnectButton>
+      const msg = errorByCode(error);
+      return (
+        <ConnectButtonErrorS
+          style={{ whiteSpace: "nowrap" }}
+          onClick={() => onError(error)}
+        >
+          {msg.title.toUpperCase()}
+        </ConnectButtonErrorS>
+      );
   }
 }

@@ -17,3 +17,4 @@ export interface Web3State {
     status: Web3Status;
     error?: Web3Error;
 }
+

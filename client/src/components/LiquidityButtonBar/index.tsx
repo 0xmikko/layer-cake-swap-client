@@ -5,7 +5,7 @@ import actions from "../../store/actions";
 import {useDispatch} from "react-redux";
 import {useOperation} from "dlt-operations";
 import {useToken} from "../../store/token/hook";
-import {Button100W, Button40W} from "../../theme";
+import {Button100W, Button40W } from "../Buttons/styles";
 
 type LiquidityButtonState =
   | "SELECT"

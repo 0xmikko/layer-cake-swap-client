@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {ButtonT} from "../../theme";
 
 export const ButtonBar = styled.div`
   display: flex;

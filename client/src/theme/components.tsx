@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import {Card} from "rebass";
+import { Card } from "rebass";
 
 export const ContainerCentered = styled(Container)`
   min-height: calc(100vh - 110px);
@@ -104,29 +104,6 @@ export function ExternalLink({
   );
 }
 
-export const ButtonT = styled(Button)`
-  background-color: #a31f43;
-  border-color: #626473;
-  border-radius: 10px !important;
-  color: #fafafa !important;
-
-  :hover,
-  :focus {
-    color: white !important;
-    background-color: #a31f43 !important;
-    //border-color: #626473;
-    border-width: 0!important;
-    border-radius: 10px;
-  }
-`;
-
-export const Button40W = styled(ButtonT)`
-  min-width: 40%;
-`;
-
-export const Button100W = styled(ButtonT)`
-  min-width: 100%;
-`;
 
 export const StyledCard = styled(Card)`
   border-radius: 20px;
@@ -136,7 +113,7 @@ export const StyledCard = styled(Card)`
 
 export const CardMainS = styled(Card)`
   //min-height: 500px;
-  min-width: 400px!important;
+  min-width: 400px !important;
   border-radius: 40px;
   background-color: #292c3f;
   padding: 30px 20px 40px 20px;
@@ -154,7 +131,6 @@ export const HBar = styled.div`
   align-items: center;
   padding-left: 20px;
   text-align: center;
- 
 `;
 
 export const RateTitle = styled.h3`
@@ -165,3 +141,6 @@ export const RateTitle = styled.h3`
   margin-bottom: 8px;
 `;
 
+export const VSpace = styled.div`
+  margin-top: ${({ height }: { height: number }) => height}px;
+`;

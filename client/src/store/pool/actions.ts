@@ -5,6 +5,7 @@ import {INITIAL_RATIO} from "../../config";
 import {ThunkTokenAction} from "../token";
 import {toBN} from "../../utils/formatter";
 import {getL2Balance} from "../substrate/actions";
+import {AssetType} from "../../core/asset";
 
 export const updatePool = (opHash: string = "0"): ThunkPoolAction => async (
   dispatch,
@@ -63,6 +64,35 @@ export const liquidityAction = (
         action === "add"
             ? await vault.connect(signer).addLiquidity(toBN(amount))
             : await vault.connect(signer).removeLiquidity(toBN(amount));
+
+    await receipt.wait();
+    dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
+    await receipt.wait(2);
+    await dispatch(getL2Balance("eth", opHash));
+    await dispatch(getL2Balance("token", opHash));
+    await dispatch(updatePool(opHash));
+  } catch (e) {
+    console.log(e);
+    dispatch(updateStatus(opHash, "STATUS.FAILURE", e?.message));
+  }
+};
+
+
+export const swapAction = (
+    target: AssetType,
+    amount: number,
+    opHash?: string
+): ThunkTokenAction => async (dispatch, getState) => {
+  try {
+    const { vault, signer } = getState().web3;
+    if (!vault || !signer) {
+      throw new Error("Cant connect vault contract");
+    }
+
+    const receipt =
+        target === "token"
+            ? await vault.connect(signer).swapToToken(toBN(amount))
+            : await vault.connect(signer).swapToEth(toBN(amount));
 
     await receipt.wait();
     dispatch(updateStatus(opHash, "STATUS.SUCCESS"));

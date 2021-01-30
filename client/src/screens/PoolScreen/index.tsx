@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import actions from "../../store/actions";
 import { useAssets } from "../../store/wallet/hook";
 import { usePool } from "../../store/pool/hook";
@@ -7,27 +7,35 @@ import { TransferCardContainer } from "./styles";
 import { DoubleIndicator } from "../../components/DoubleIndicator";
 import { formatBN } from "../../utils/formatter";
 import { LiquidityButtonBar } from "../../components/LiquidityButtonBar";
-import { HBar, RateTitle } from "../../theme";
+import {HBar, RateTitle, VSpace} from "../../theme";
+import { Web3ButtonWrapper } from "../../components/Buttons";
+import { RootState } from "../../store";
+import { useSubstrate } from "../../store/substrate/hook";
+import { useWeb3 } from "../../store/web3/hook";
 
 export function PoolScreen(): React.ReactElement {
   const dispatch = useDispatch();
 
+  const { api } = useSubstrate();
+  const { provider } = useWeb3();
+
   useEffect(() => {
-    dispatch(actions.wallet.getBalance("eth"));
-    dispatch(actions.wallet.getBalance("token"));
-    dispatch(actions.pool.updatePool());
-  }, []);
+    if (provider) dispatch(actions.token.getTokenInfo());
+    if (api && provider) dispatch(actions.pool.updatePool());
+  }, [api, provider]);
 
   const ethAsset = useAssets("eth");
   const tokenAsset = useAssets("token");
   const { rate, tokenLiquidity, ethLiquidity, balance } = usePool();
+
+  const humanRate = `${rate.toFixed(4)} ${tokenAsset.symbol} / ${ethAsset.symbol}`
 
   return (
     <>
       <h1>Pool</h1>
       <TransferCardContainer>
         <HBar>
-          <RateTitle> Rate: {rate.toFixed(4)}</RateTitle>
+          <RateTitle> Rate: {humanRate}</RateTitle>
         </HBar>
         <DoubleIndicator
           leftTitle={ethAsset.name}
@@ -37,10 +45,14 @@ export function PoolScreen(): React.ReactElement {
           rightValue={tokenLiquidity}
           rightDecimals={tokenAsset.decimals}
         />
+        <VSpace height={10} />
         <HBar>
           <RateTitle> You own: {formatBN(balance)} liquidity tokens.</RateTitle>
         </HBar>
-        <LiquidityButtonBar />
+        <VSpace height={10} />
+        <Web3ButtonWrapper>
+          <LiquidityButtonBar />
+        </Web3ButtonWrapper>
       </TransferCardContainer>
     </>
   );
