@@ -11,8 +11,7 @@ import pool from "./pool/reducer";
 import web3 from "./web3/reducer";
 import { operationReducer } from "dlt-operations";
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default combineReducers({
+export const reducer = combineReducers({
   operations: operationReducer,
   app,
   modal,
