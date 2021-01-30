@@ -11,6 +11,7 @@ import * as token from "./token/actions";
 import * as substrate from './substrate/actions'
 import * as web3 from "./web3/actions";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   app,
   modal,
