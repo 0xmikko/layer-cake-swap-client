@@ -4,8 +4,7 @@ import {SmartNumberInput} from "../SmartNumberInput";
 import actions from "../../store/actions";
 import {useDispatch} from "react-redux";
 import {useOperation} from "dlt-operations";
-import {useToken} from "../../store/token/hook";
-import {Button100W, Button40W } from "../Buttons/styles";
+import {Button100W, Button40W} from "../Buttons/styles";
 
 type LiquidityButtonState =
   | "SELECT"
@@ -16,8 +15,9 @@ type LiquidityButtonState =
 
 export function LiquidityButtonBar(): React.ReactElement {
   const [state, setState] = useState<LiquidityButtonState>("SELECT");
-  const [liquiditySum, setLiquiditySum] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [hash, setHash] = useState("0");
+  const [action, setAction] = useState("add");
 
   useEffect(() => {
     dispatch(actions.token.getTokenAllowance());
@@ -26,13 +26,13 @@ export function LiquidityButtonBar(): React.ReactElement {
   let view: React.ReactElement;
 
   const dispatch = useDispatch();
-  const { allowance } = useToken();
 
   const onCommandPressed = (action: "add" | "remove") => {
     setState("PROCESSING");
+    setAction(action);
     const newHash = Date.now().toString();
     setHash(newHash);
-    dispatch(actions.pool.liquidityAction(action, liquiditySum, newHash))
+    dispatch(actions.pool.liquidityAction(action, amount, newHash))
   };
 
   const operation = useOperation(hash);
@@ -41,10 +41,20 @@ export function LiquidityButtonBar(): React.ReactElement {
     if (hash !== "0") {
       switch (operation?.status) {
         case "STATUS.SUCCESS":
+          dispatch(
+              actions.modal.show(
+                  "Operation submitted",
+                  `You ${action} liquidity operation for ${amount} was successfully submitted`
+              )
+          );
           setState("SELECT");
+          setHash("0");
           break;
         case "STATUS.FAILURE":
-          alert(operation?.error);
+          dispatch(
+              actions.modal.show("Error", operation?.error || "Unknown error")
+          );
+          setHash("0");
           setState("SELECT");
           break;
       }
@@ -67,7 +77,7 @@ export function LiquidityButtonBar(): React.ReactElement {
     case "ADD":
       view = (
         <>
-          <SmartNumberInput onChangeNum={setLiquiditySum} />
+          <SmartNumberInput onChangeNum={setAmount} />
           <Button40W onClick={() => onCommandPressed("add")}>
             Add &rarr;
           </Button40W>
@@ -77,7 +87,7 @@ export function LiquidityButtonBar(): React.ReactElement {
     case "REMOVE":
       view = (
         <>
-          <SmartNumberInput onChangeNum={setLiquiditySum} />
+          <SmartNumberInput onChangeNum={setAmount} />
           <Button40W onClick={() => onCommandPressed("remove")}>
             &larr; Remove
           </Button40W>
