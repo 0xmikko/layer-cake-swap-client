@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Dropdown} from "react-bootstrap";
 import {DropItemS, StyledDropdownButton, StyledDropdownMenu,} from "./styles";
 import {AssetType} from "../../core/asset";

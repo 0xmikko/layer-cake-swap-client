@@ -34,6 +34,7 @@ export function DepositButtonBar({
 
   useEffect(() => {
     dispatch(actions.token.getTokenAllowance());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [balance]);
 
   let view: React.ReactElement;
@@ -90,6 +91,7 @@ export function DepositButtonBar({
           break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash, operation?.status]);
 
   switch (state) {

@@ -14,10 +14,10 @@ export function Footer() {
             </div>
             <div style={{marginRight: "1rem"}}>
                 <a href="https://t.me/mikael_l" style={{marginRight: "14px"}}>
-                    <img src={telegramIcon} height={28} />
+                    <img src={telegramIcon} height={28} alt={"telegram"}/>
                 </a>
                 <a href="https://github.com/MikaelLazarev/layer-cake-swap-node">
-                    <img src={githubIcon} height={28} />
+                    <img src={githubIcon} height={28} alt={"github"}/>
                 </a>
             </div>
         </FooterContent>

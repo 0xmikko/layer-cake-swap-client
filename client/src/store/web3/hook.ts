@@ -17,6 +17,7 @@ export function useWeb3() : Web3State {
             dispatch(actions.token.getTokenAllowance( "wallet"));
             dispatch(actions.token.getTokenInfo());
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [provider]);
 
     return web3

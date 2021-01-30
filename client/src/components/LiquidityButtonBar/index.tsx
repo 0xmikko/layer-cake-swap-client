@@ -21,6 +21,7 @@ export function LiquidityButtonBar(): React.ReactElement {
 
   useEffect(() => {
     dispatch(actions.token.getTokenAllowance());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let view: React.ReactElement;
@@ -59,6 +60,7 @@ export function LiquidityButtonBar(): React.ReactElement {
           break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash, operation?.status]);
 
   switch (state) {

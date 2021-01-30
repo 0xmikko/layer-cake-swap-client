@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { DarrContainerS, InputBlockS } from "./styles";
-import { AmountInput } from "../../components/AmountInput";
-import { CurrencySelector } from "../../components/CurrencySelector";
-import { AssetType } from "../../core/asset";
-import { usePool } from "../../store/pool/hook";
+import React, {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {DarrContainerS, InputBlockS} from "./styles";
+import {AmountInput} from "../../components/AmountInput";
+import {CurrencySelector} from "../../components/CurrencySelector";
+import {AssetType} from "../../core/asset";
+import {usePool} from "../../store/pool/hook";
 import actions from "../../store/actions";
-import { HBar, RateTitle, StyledCard, VSpace } from "../../theme";
-import { Web3ButtonWrapper } from "../../components/Buttons";
-import { Button100W } from "../../components/Buttons/styles";
-import { useOperation } from "dlt-operations";
-import { useSubstrate } from "../../store/substrate/hook";
-import { useWeb3 } from "../../store/web3/hook";
-import { useAssets } from "../../store/wallet/hook";
+import {HBar, RateTitle, StyledCard, VSpace} from "../../theme";
+import {Web3ButtonWrapper} from "../../components/Buttons";
+import {Button100W} from "../../components/Buttons/styles";
+import {useOperation} from "dlt-operations";
+import {useSubstrate} from "../../store/substrate/hook";
+import {useWeb3} from "../../store/web3/hook";
+import {useAssets} from "../../store/wallet/hook";
 
-export interface SmartFieldProps {}
-
-export function SwapScreen({}: SmartFieldProps): React.ReactElement {
+export function SwapScreen(): React.ReactElement {
   const [target, setTarget] = useState<AssetType>("token");
   const [source, setSource] = useState<AssetType>("eth");
   const [amount, setAmount] = useState(0);
@@ -29,6 +27,7 @@ export function SwapScreen({}: SmartFieldProps): React.ReactElement {
   useEffect(() => {
     if (provider) dispatch(actions.token.getTokenInfo());
     if (api && provider) dispatch(actions.pool.updatePool());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, provider]);
 
   const { rate } = usePool();
@@ -79,6 +78,7 @@ export function SwapScreen({}: SmartFieldProps): React.ReactElement {
           break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash, operation?.status]);
 
   return (

@@ -1,12 +1,7 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../index";
-import {Pool} from "../../core/pool";
-import actions from "../actions";
+import { useSelector } from "react-redux";
+import { RootState } from "../index";
+import { Pool } from "../../core/pool";
 
-export function usePool() : Pool {
-
-
-
-    return useSelector((state:RootState) => state.pool);
-
+export function usePool(): Pool {
+  return useSelector((state: RootState) => state.pool);
 }

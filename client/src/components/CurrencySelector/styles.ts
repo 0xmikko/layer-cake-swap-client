@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Button, Dropdown} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
 
 export const StyledDropdownButton = styled(Dropdown.Toggle)`
   width: 100%;

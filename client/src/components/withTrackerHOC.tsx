@@ -35,6 +35,7 @@ export const withTracker = <P extends RouteComponentProps>(
                 ReactPixel.pageView();
                 Analytics.sendEvent("PAGE_OPEN", "CLIENT:" + props.location.pathname)
             }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [history]);
 
         return <WrappedComponent {...props} />;

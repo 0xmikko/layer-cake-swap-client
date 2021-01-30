@@ -17,7 +17,7 @@ export function TransferCard({ asset }: TransferCardProps): React.ReactElement {
   return (
     <TransferCardContainer>
       <HBar>
-        <img src={icon} height={"20px"} />
+        <img src={icon} height={"20px"} alt={name}/>
         <AssetTitle> {name}</AssetTitle>
       </HBar>
       <DoubleIndicator

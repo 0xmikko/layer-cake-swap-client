@@ -1,10 +1,9 @@
-import React, { HTMLProps, useCallback } from "react";
+import React, {HTMLProps, useCallback} from "react";
 import ReactGA from "react-ga";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import {Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
-import { Card } from "rebass";
+import {Card} from "rebass";
 
 export const ContainerCentered = styled(Container)`
   min-height: calc(100vh - 110px);

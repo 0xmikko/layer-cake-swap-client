@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch} from "react-redux";
 import actions from "../../store/actions";
-import { useAssets } from "../../store/wallet/hook";
-import { usePool } from "../../store/pool/hook";
-import { TransferCardContainer } from "./styles";
-import { DoubleIndicator } from "../../components/DoubleIndicator";
-import { formatBN } from "../../utils/formatter";
-import { LiquidityButtonBar } from "../../components/LiquidityButtonBar";
+import {useAssets} from "../../store/wallet/hook";
+import {usePool} from "../../store/pool/hook";
+import {TransferCardContainer} from "./styles";
+import {DoubleIndicator} from "../../components/DoubleIndicator";
+import {formatBN} from "../../utils/formatter";
+import {LiquidityButtonBar} from "../../components/LiquidityButtonBar";
 import {HBar, RateTitle, VSpace} from "../../theme";
-import { Web3ButtonWrapper } from "../../components/Buttons";
-import { RootState } from "../../store";
-import { useSubstrate } from "../../store/substrate/hook";
-import { useWeb3 } from "../../store/web3/hook";
+import {Web3ButtonWrapper} from "../../components/Buttons";
+import {useSubstrate} from "../../store/substrate/hook";
+import {useWeb3} from "../../store/web3/hook";
 
 export function PoolScreen(): React.ReactElement {
   const dispatch = useDispatch();
@@ -22,6 +21,7 @@ export function PoolScreen(): React.ReactElement {
   useEffect(() => {
     if (provider) dispatch(actions.token.getTokenInfo());
     if (api && provider) dispatch(actions.pool.updatePool());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, provider]);
 
   const ethAsset = useAssets("eth");

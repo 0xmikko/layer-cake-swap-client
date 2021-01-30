@@ -1,10 +1,10 @@
-import { Asset, AssetType } from "../../core/asset";
-import { BigNumber } from "ethers";
-import { useToken } from "../token/hook";
-import { useWeb3 } from "../web3/hook";
-import { useSubstrate } from "../substrate/hook";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import {Asset, AssetType} from "../../core/asset";
+import {BigNumber} from "ethers";
+import {useToken} from "../token/hook";
+import {useWeb3} from "../web3/hook";
+import {useSubstrate} from "../substrate/hook";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
 import actions from "../actions";
 import {ICONS} from "../../config";
 
@@ -18,6 +18,7 @@ export function useAssets(asset: AssetType): Asset {
     if (!token.infoLoaded) {
       dispatch(actions.token.getTokenInfo());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.infoLoaded]);
 
   switch (asset) {

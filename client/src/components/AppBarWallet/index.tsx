@@ -18,6 +18,7 @@ export function AppBarWallet() {
 
   useEffect(() => {
     if (status === "WEB3_STARTUP") connect();
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, window.ethereum]);
 
   const onError = (e: Web3Error | undefined) => {
