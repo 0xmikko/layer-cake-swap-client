@@ -13,7 +13,9 @@ export function formatBN(num?: BigNumberish, decimals?: number): string {
 }
 
 export function toBN(num: number, decimals?: number): BigNumber {
-  return BigNumber.from(num).mul(BigNumber.from(10).pow(decimals || 18));
+  return BigNumber.from(num * 100000).mul(
+    BigNumber.from(10).pow((decimals || 18) - 5)
+  );
 }
 
 export function shortAddress(address?: string): string {

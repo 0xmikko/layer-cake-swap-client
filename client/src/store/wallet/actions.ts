@@ -9,17 +9,19 @@ import { getL2Balance } from "../substrate/actions";
 export const depositAsset = (
   asset: AssetType,
   amount: number,
+  decimals: number,
   opHash?: string
 ): ThunkTokenAction => async (dispatch, getState) => {
-  dispatch(vaultAction("deposit", asset, amount, opHash));
+  dispatch(vaultAction("deposit", asset, amount, decimals, opHash));
 };
 
 export const withdrawAsset = (
   asset: AssetType,
   amount: number,
+  decimals: number,
   opHash?: string
 ): ThunkTokenAction => async (dispatch, getState) => {
-  dispatch(vaultAction("withdraw", asset, amount, opHash));
+  dispatch(vaultAction("withdraw", asset, amount, decimals, opHash));
 };
 
 export const getBalance = (
@@ -37,6 +39,7 @@ const vaultAction = (
   action: "deposit" | "withdraw",
   asset: AssetType,
   amount: number,
+  decimals: number,
   opHash?: string
 ): ThunkTokenAction => async (dispatch, getState) => {
   try {
@@ -48,11 +51,11 @@ const vaultAction = (
     const receipt =
       action === "deposit"
         ? asset === "eth"
-          ? await vault.connect(signer).depositEth({ value: toBN(amount) })
-          : await vault.connect(signer).depositToken(toBN(amount))
+          ? await vault.connect(signer).depositEth({ value: toBN(amount, decimals) })
+          : await vault.connect(signer).depositToken(toBN(amount, decimals))
         : asset === "eth"
-        ? await vault.connect(signer).withdrawEth(toBN(amount))
-        : await vault.connect(signer).withdrawToken(toBN(amount));
+        ? await vault.connect(signer).withdrawEth(toBN(amount, decimals))
+        : await vault.connect(signer).withdrawToken(toBN(amount, decimals));
 
 
     await receipt.wait();

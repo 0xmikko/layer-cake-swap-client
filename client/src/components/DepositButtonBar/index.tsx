@@ -8,6 +8,7 @@ import { useOperation } from "dlt-operations";
 import { useToken } from "../../store/token/hook";
 import { BigNumber } from "ethers";
 import { Button100W, Button40W } from "../Buttons/styles";
+import { useAssets } from "../../store/wallet/hook";
 
 type DepositButtonState =
   | "SELECT"
@@ -31,6 +32,7 @@ export function DepositButtonBar({
 
   const dispatch = useDispatch();
   const { allowance, balance } = useToken();
+  const { decimals}  =useAssets(asset);
 
   useEffect(() => {
     dispatch(actions.token.getTokenAllowance());
@@ -46,13 +48,13 @@ export function DepositButtonBar({
     setAction(action);
     switch (action) {
       case "deposit":
-        dispatch(actions.wallet.depositAsset(asset, depositSum, newHash));
+        dispatch(actions.wallet.depositAsset(asset, depositSum, decimals, newHash));
         break;
       case "approve":
-        dispatch(actions.token.approveToken(depositSum, newHash));
+        dispatch(actions.token.approveToken(depositSum, decimals, newHash));
         break;
       case "withdraw":
-        dispatch(actions.wallet.withdrawAsset(asset, withdrawSum, newHash));
+        dispatch(actions.wallet.withdrawAsset(asset, withdrawSum, decimals, newHash));
         break;
     }
   };

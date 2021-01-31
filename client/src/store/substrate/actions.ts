@@ -3,13 +3,14 @@ import { ThunkSubstrateAction } from "./index";
 import { updateStatus } from "dlt-operations";
 import { BigNumber } from "ethers";
 import {AssetType} from "../../core/asset";
+import {SUBSTRATE_ENDPOINT} from "../../config";
 
 export const connect = (): ThunkSubstrateAction => async (
   dispatch,
   getState
 ) => {
   // Construct
-  const wsProvider = new WsProvider("ws://127.0.0.1:9944");
+  const wsProvider = new WsProvider(SUBSTRATE_ENDPOINT);
   const api = await ApiPromise.create({
     provider: wsProvider,
     types: {

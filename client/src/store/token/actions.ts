@@ -4,6 +4,7 @@ import {toBN} from "../../utils/formatter";
 
 export const approveToken = (
   amount: number,
+  decimals: number,
   opHash?: string
 ): ThunkTokenAction => async (dispatch, getState) => {
   try {
@@ -12,7 +13,7 @@ export const approveToken = (
       throw new Error("Cant connect vault contract");
     }
     // @ts-ignore : Vercel: Property 'address' does not exist on type 'Vault'.  TS2339
-    await token.connect(signer).approve(vault.address, toBN(amount));
+    await token.connect(signer).approve(vault.address, toBN(amount, decimals));
     dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
   } catch (e) {
     console.log(e);
