@@ -1,19 +1,29 @@
 import * as fs from "fs";
 // @ts-ignore
-import {ethers} from "hardhat";
-import {Deployer} from "./deployer";
+import { ethers } from "hardhat";
+import { Deployer } from "./deployer";
+
+const deployToRopsten = true;
+const erc20Address = '0xad6d458402f60fd3bd25163575031acdce07538d';
 
 export async function deploy() {
   const accounts = await ethers.getSigners();
 
-  const deployer = new Deployer(true, "0x07865c6e87b9f70255377e024ace6630c1eaa37f");
+  const deployer = new Deployer(
+    true,
+    deployToRopsten ? erc20Address : undefined
+  );
   const vault = await deployer.getVault();
-  const tokenMock = await deployer.getTokenMock();
+  const tokenMock = deployToRopsten ? undefined : await deployer.getTokenMock();
 
   const envFile = `
 REACT_APP_VAULT_ADDRESS=${vault.address}
-REACT_APP_TOKEN_ADDRESS=${"0x07865c6e87b9f70255377e024ace6630c1eaa37f"}
-REACT_APP_CHAIN_ID=3`;
+REACT_APP_TOKEN_ADDRESS=${
+    deployToRopsten
+      ? erc20Address
+      : tokenMock.address
+  }
+REACT_APP_CHAIN_ID=${deployToRopsten ? 3 : 1337}`;
 
   console.log("Deployer:", accounts[0].address);
   // await tokenMock

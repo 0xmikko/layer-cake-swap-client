@@ -14,6 +14,7 @@ export function useSubstrate(): SubstrateState {
     } else {
       dispatch(actions.substrate.getL2Balance("eth"));
       dispatch(actions.substrate.getL2Balance("token"));
+      dispatch(actions.pool.updatePool());
     }
   }, [api]);
 

@@ -4,8 +4,9 @@ import { DepositButtonBar } from "../DepositButtonBar";
 import { AssetType } from "../../core/asset";
 import { useAssets } from "../../store/wallet/hook";
 import { DoubleIndicator } from "../DoubleIndicator";
-import { HBar, VSpace } from "../../theme";
+import { HBar, RateTitle, VSpace } from "../../theme";
 import { Web3ButtonWrapper } from "../Buttons";
+import { formatBN } from "../../utils/formatter";
 
 export interface TransferCardProps {
   asset: AssetType;
@@ -14,10 +15,21 @@ export interface TransferCardProps {
 export function TransferCard({ asset }: TransferCardProps): React.ReactElement {
   const { name, decimals, mainBalance, l2Balance, icon } = useAssets(asset);
 
+  const token = useAssets("token");
+
+  const approveBar =
+    asset === "token" ? (
+      <HBar>
+        <RateTitle>
+          Approved: {formatBN(token.allowance, token.decimals)}
+        </RateTitle>
+      </HBar>
+    ) : undefined;
+
   return (
     <TransferCardContainer>
       <HBar>
-        <img src={icon} height={"20px"} alt={name}/>
+        <img src={icon} height={"20px"} alt={name} />
         <AssetTitle> {name}</AssetTitle>
       </HBar>
       <DoubleIndicator
@@ -32,6 +44,7 @@ export function TransferCard({ asset }: TransferCardProps): React.ReactElement {
       <Web3ButtonWrapper>
         <DepositButtonBar asset={asset} />
       </Web3ButtonWrapper>
+      {approveBar}
     </TransferCardContainer>
   );
 }

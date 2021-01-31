@@ -13,8 +13,8 @@ export function formatBN(num?: BigNumberish, decimals?: number): string {
 }
 
 export function toBN(num: number, decimals?: number): BigNumber {
-  return BigNumber.from(num * 100000).mul(
-    BigNumber.from(10).pow((decimals || 18) - 5)
+  return BigNumber.from(num * 10000).mul(
+    BigNumber.from(10).pow((decimals || 18) - 4)
   );
 }
 

@@ -62,8 +62,8 @@ export const liquidityAction = (
 
     const receipt =
         action === "add"
-            ? await vault.connect(signer).addLiquidity(toBN(amount))
-            : await vault.connect(signer).removeLiquidity(toBN(amount));
+            ? await vault.connect(signer).addLiquidity(toBN(amount, 18))
+            : await vault.connect(signer).removeLiquidity(toBN(amount, 18));
 
     await receipt.wait();
     dispatch(updateStatus(opHash, "STATUS.SUCCESS"));
