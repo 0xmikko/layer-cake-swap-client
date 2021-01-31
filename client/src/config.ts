@@ -9,6 +9,8 @@ export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID || "3");
 export const SUBSTRATE_ENDPOINT =
   process.env.REACT_APP_SUBSTRATE_ENDPOINT || "ws://127.0.0.1:9944";
 
+console.log(SUBSTRATE_ENDPOINT);
+
 /// INITIAL RATIO FOR EMPTY POOL
 export const INITIAL_RATIO = 1000;
 
