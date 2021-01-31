@@ -11,6 +11,7 @@ export function WalletScreen(): React.ReactElement {
     dispatch(actions.wallet.getBalance("eth"));
     dispatch(actions.wallet.getBalance("token"));
     dispatch(actions.token.getTokenAllowance());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockNumberTimer]);
 
   const timer = () => {
@@ -20,6 +21,7 @@ export function WalletScreen(): React.ReactElement {
   useEffect(() => {
     const id = setInterval(timer, 1000);
     return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

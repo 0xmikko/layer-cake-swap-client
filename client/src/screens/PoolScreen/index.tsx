@@ -27,6 +27,7 @@ export function PoolScreen(): React.ReactElement {
 
   useEffect(() => {
     if (api && provider) dispatch(actions.pool.updatePool());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockNumberTimer]);
 
   const timer = () => {

@@ -16,6 +16,7 @@ export function useSubstrate(): SubstrateState {
       dispatch(actions.substrate.getL2Balance("token"));
       dispatch(actions.pool.updatePool());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api]);
 
   return substate;
