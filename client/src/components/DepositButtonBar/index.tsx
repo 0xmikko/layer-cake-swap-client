@@ -102,7 +102,7 @@ export function DepositButtonBar({
         <>
           <Button40W onClick={depositNextAction}>Deposit &rarr;</Button40W>
           <Button40W onClick={() => setState("WITHDRAW")}>
-            &larr; Withdraw
+            Withdraw
           </Button40W>
         </>
       );
@@ -112,7 +112,7 @@ export function DepositButtonBar({
         <>
           <SmartNumberInput onChangeNum={setDepositSum} />
           <Button40W onClick={() => onCommandPressed("deposit")}>
-            Deposit &rarr;
+            Deposit
           </Button40W>
         </>
       );

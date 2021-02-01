@@ -81,7 +81,7 @@ export function LiquidityButtonBar(): React.ReactElement {
         <>
           <SmartNumberInput onChangeNum={setAmount} />
           <Button40W onClick={() => onCommandPressed("add")}>
-            Add &rarr;
+            Add
           </Button40W>
         </>
       );
@@ -91,7 +91,7 @@ export function LiquidityButtonBar(): React.ReactElement {
         <>
           <SmartNumberInput onChangeNum={setAmount} />
           <Button40W onClick={() => onCommandPressed("remove")}>
-            &larr; Remove
+            Remove
           </Button40W>
         </>
       );
